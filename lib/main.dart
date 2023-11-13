@@ -65,7 +65,7 @@ class _MyAppState extends State<MyApp> {
           ),
           child: Padding(
             padding: const EdgeInsets.only(
-              top: 40,
+              top: 50,
               left: 40,
               right: 20,
             ),
@@ -84,13 +84,23 @@ class _MyAppState extends State<MyApp> {
                           color: Colors.white,
                         ),
                         controller: _cityName,
+                        cursorColor: Colors.white,
                         decoration: InputDecoration(
-                          labelText: "City Name",
-                          labelStyle: const TextStyle(
+                          hintText: "City Name",
+                          hintStyle: const TextStyle(
                             fontSize: 16,
                             color: Colors.white,
                           ),
-                          border: const OutlineInputBorder(),
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.white,
+                            ),
+                          ),
+                          focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.white,
+                            ),
+                          ),
                           suffixIcon: IconButton(
                             onPressed: () {
                               onSearchButtonPress();
@@ -106,20 +116,41 @@ class _MyAppState extends State<MyApp> {
                     ),
                   ],
                 ),
-                Container(
-                  width: 200,
-                  height: 200,
-                  decoration: const BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Container(
+                    width: 200,
+                    height: 200,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(50),
+                      ),
                     ),
+                    child: Column(children: [
+                      Text(
+                        "${_response?.city}",
+                        style: const TextStyle(
+                          fontSize: 22,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        "${_response?.tempInfo.temperature}°",
+                        style: const TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        "${_response?.weatherInfo.description}",
+                        style: const TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ]),
                   ),
-                  child: Column(children: [
-                    if (_response != null)
-                      Text("${_response?.tempInfo.temperature} °C"),
-                    Text("${_response?.city}"),
-                  ]),
                 )
               ],
             ),
