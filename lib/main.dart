@@ -62,11 +62,6 @@ class _MyAppState extends State<MyApp> {
       fullTime = _dateAndTimeResponse?.time;
       hour = fullTime?.substring(11, 13);
       int hourInt = int.parse(hour!);
-      // print(_dateAndTimeResponse?.time);
-      // print(response.city);
-      // print(response.tempInfo.temperature);
-      // print(response.weatherInfo.description);
-      // print(response.coordinatesInfo.longitude);
 
       if (hourInt >= 05 && hourInt <= 11) {
         backgroundImageStatus = "assets/morning.jpg";
