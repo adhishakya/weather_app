@@ -24,15 +24,33 @@ class WeatherInfo {
   }
 }
 
+class CoordinatesInfo {
+  final double latitude;
+  final double longitude;
+
+  CoordinatesInfo({
+    required this.latitude,
+    required this.longitude,
+  });
+
+  factory CoordinatesInfo.fromJson(Map<String, dynamic> json) {
+    final latitude = json["lat"];
+    final longitude = json["lon"];
+    return CoordinatesInfo(latitude: latitude, longitude: longitude);
+  }
+}
+
 class WeatherResponse {
   final String city;
   final TemperatureInfo tempInfo;
   final WeatherInfo weatherInfo;
+  final CoordinatesInfo coordinatesInfo;
 
   WeatherResponse({
     required this.city,
     required this.tempInfo,
     required this.weatherInfo,
+    required this.coordinatesInfo,
   });
 
   factory WeatherResponse.fromJson(Map<String, dynamic> json) {
@@ -43,10 +61,15 @@ class WeatherResponse {
 
     final weatherInfoJson = json["weather"][0];
     final weatherInfo = WeatherInfo.fromJson(weatherInfoJson);
+
+    final coordinatesInfoJson = json["coord"];
+    final coordinatesInfo = CoordinatesInfo.fromJson(coordinatesInfoJson);
+
     return WeatherResponse(
       city: city,
       tempInfo: finalTemperature,
       weatherInfo: weatherInfo,
+      coordinatesInfo: coordinatesInfo,
     );
   }
 }
