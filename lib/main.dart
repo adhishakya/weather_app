@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
   String? fullTime;
   String? hour;
 
-  String backgroundImageStatus = "";
+  String backgroundImageStatus = "assets/night.jpg";
 
   void _searchCity(String city) async {
     final response = await _dataService.getWeather(city);
@@ -62,13 +62,12 @@ class _MyAppState extends State<MyApp> {
       fullTime = _dateAndTimeResponse?.time;
       hour = fullTime?.substring(11, 13);
       int hourInt = int.parse(hour!);
-      print(hourInt);
-      print(hourInt.runtimeType);
       // print(_dateAndTimeResponse?.time);
       // print(response.city);
       // print(response.tempInfo.temperature);
       // print(response.weatherInfo.description);
       // print(response.coordinatesInfo.longitude);
+
       if (hourInt >= 05 && hourInt <= 11) {
         backgroundImageStatus = "assets/morning.jpg";
       } else if (hourInt >= 12 && hourInt <= 17) {
@@ -76,7 +75,7 @@ class _MyAppState extends State<MyApp> {
       } else {
         backgroundImageStatus = "assets/night.jpg";
       }
-      print(backgroundImageStatus);
+      // print(backgroundImageStatus);
     });
   }
 
@@ -99,6 +98,7 @@ class _MyAppState extends State<MyApp> {
       ),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -159,44 +159,45 @@ class _MyAppState extends State<MyApp> {
                     ),
                   ],
                 ),
-                Column(children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: Text(
-                      "${_response?.city}",
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
+                Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Text(
+                          "${_response?.city}",
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  Text(
-                    "${_response?.tempInfo.temperature}°",
-                    style: const TextStyle(
-                      fontSize: 70,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Text(
-                    "${_response?.weatherInfo.description[0].toUpperCase()}${_response?.weatherInfo.description.substring(1)}",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.grey[400],
-                    ),
-                  ),
-                  SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 470),
-                      child: Text(
-                        "${_dateAndTimeResponse?.time}",
+                      Text(
+                        "${_response?.tempInfo.temperature}°",
                         style: const TextStyle(
-                          fontSize: 34,
+                          fontSize: 70,
                           color: Colors.white,
                         ),
                       ),
-                    ),
-                  ),
-                ])
+                      Text(
+                        "${_response?.weatherInfo.description[0].toUpperCase()}${_response?.weatherInfo.description.substring(1)}",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.grey[400],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 470),
+                        child: Text(
+                          "${_dateAndTimeResponse?.time}",
+                          style: const TextStyle(
+                            fontSize: 34,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ])
               ],
             ),
           ),
