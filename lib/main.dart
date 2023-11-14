@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    _searchCity("Kathmandu");
+    _searchCity("Kathmandu", 27.7167, 85.3167);
   }
 
   @override
@@ -43,9 +43,9 @@ class _MyAppState extends State<MyApp> {
   String? fullTime;
   String? hour;
 
-  String backgroundImageStatus = "assets/night.jpg";
+  String backgroundImageStatus = "assets/noon.jpg";
 
-  void _searchCity(String city) async {
+  void _searchCity(String city, double lat, double lon) async {
     final response = await _dataService.getWeather(city);
 
     setState(() {
@@ -75,7 +75,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void onSearchButtonPress() {
-    _searchCity(_cityName.text);
+    _searchCity(_cityName.text, 0, 0);
     DateAndTimeService();
     _cityName.clear();
     FocusScope.of(context).requestFocus(
