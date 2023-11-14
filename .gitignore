@@ -44,3 +44,4 @@ app.*.map.json
 /android/app/release
 .env*
 /lib/response_structure.json
+/lib/time_response_structure.json
